@@ -155,7 +155,7 @@ Let's make a game!
       *gatherTrash
         name:Gather Loose Trash
         desc:Discarded plastic shopping bags, bits and bobs, rotten clothes and tin cans, you name it. Meagre offerings gathered by hand while avoiding the dangers of the wasteland.
-        icon:https://imgoat.com/uploads/4f683a8416/61116.png
+        icon:https://github.com/YIntercept2/tmota/raw/master/assets/folded-paper.png
         on click:
           yield 1 trash
         //if not already in a settlement AND OR have weapon, it is safe to keep travelling so..
