@@ -82,7 +82,7 @@ Let's make a game!
       *trash
         name:Bits of trash
         desc:A tin can, old plastic, maybe someone has a use for this stuff? maybe?
-        icon:https://images2.imgbox.com/4b/41/BXhgMn3m_o.png
+        icon:https://images2.imgbox.com/ab/c8/XzNBuS8o_o.png
         start with:0
         on click:
           if (have cardboardSortingBins and trash >= 20)
