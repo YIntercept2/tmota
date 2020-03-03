@@ -37,44 +37,6 @@ Let's make a game!
     //  in:main
     //  class:inventory
 
-    CSS
-      .thing-icon,.particle
-      {
-        width:64px;
-        height:64px;
-      }
-      .inventory
-      {
-        text-align:center;
-        padding:1px;
-        border:1px
-        margin:1px
-        box-shadow:none;
-        position: absolute;
-        top:15%;
-        left:0px;
-        height:350px;
-        width:25%;
-      }
-      .logger
-      {
-        text-align:center;
-        padding:1px;
-        border:none
-        margin:1px
-        box-shadow:none;
-        position: absolute;
-        bottom:0em;
-        left:0px;
-        height:2em;
-        width: 60%;
-        overflow: hidden;
-       }
-     
-    //everything after bottom in the .logger class, is experimental
-
-
-
     Resources
         *time
         name:Time
