@@ -121,7 +121,6 @@ Let's make a game!
         name:Bits of trash
         desc:A tin can, old plastic, maybe someone has a use for this stuff? maybe?
         icon:https://raw.githubusercontent.com/YIntercept2/tmota/master/assets/folded-paper(1).png
-        //https://imgoat.com/uploads/4f683a8416/61100.png
         start with:8000
         on click:
           if (have cardboardSortingBins and trash >= 20)
