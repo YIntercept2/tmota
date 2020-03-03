@@ -39,8 +39,8 @@ Let's make a game!
     CSS
       .thing-icon,.particle
       {
-        width:64px;
-        height:64px;
+        width:48px;
+        height:48px;
       }
       .inventory
       {
