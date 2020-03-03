@@ -1,0 +1,231 @@
+Let's make a game!
+      name:Trash Merchant of The Apocalypse
+      by:YIntercept
+      desc:Scavenge, loot, sell, build your empire of trash and makeshift goods in the wasteland
+      version:0.027
+     
+    Layout
+      //use default
+      *main
+      contains:res, buttons
+      *res
+        contains:Resources
+        class:fullWidth
+      *buttons
+        contains:Buttons
+      *logger
+        contains:Log
+        class:logger
+       
+    *store
+      contains:buildings, upgrades
+      *buildings
+        contains:BulkDisplay, Buildings
+        header:Community & Dwellings
+        tooltip origin:left
+      *upgrades
+        contains:Upgrades
+        header:Trades & Offers
+        costs:hide
+        names:hide
+      //experimental
+    //  *items
+    //    contains:Items
+    //  header:This is your inventory
+    //  in:main
+    //  class:inventory
+ 
+    CSS
+      .thing-icon,.particle
+      {
+        width:64px;
+        height:64px;
+      }
+      .inventory
+      {
+        text-align:center;
+        padding:1px;
+        border:1px
+        margin:1px
+        box-shadow:none;
+        position: absolute;
+        top:15%;
+        left:0px;
+        height:350px;
+        width:25%;
+      }
+      .logger
+      {
+        text-align:center;
+        padding:1px;
+        border:none
+        margin:1px
+        box-shadow:none;
+        position: absolute;
+        bottom:0em;
+        left:0px;
+        height:2em;
+        width: 60%;
+        overflow: hidden;
+       }
+     
+    //everything after bottom in the .logger class, is experimental
+     
+     
+     
+ 
+    Resources
+        *time
+        name:Time
+        text:[n:this] [time]
+        hidden
+       
+        *distance
+        name:Distance
+        text:[mile].[this/10] miles walked
+        on earn:
+          if (distance >= 100)
+            lose distance
+            yield 1 mile
+          end
+        end
+       
+        *mile
+        name:Miles
+        text:Miles [this]
+        hidden
+       
+        *yearUnknown
+        name:Year
+        text:[n:this] ????
+        //on start:grant 2037 year
+        start with:1
+        on click:
+          clear log
+          log What year is it, I wish I knew.
+        end
+        no tooltip
+        hidden when 0
+       
+        *yearKnown
+        name:Year
+        text:[n:this] 20[this] AD
+        start with:37
+        no tooltip
+        req:yearUnknown<=0
+        //could also have started it out hidden and explicitly shown it it in the calendar
+        //upgrade on-earn event
+     
+      *trash
+        name:Bits of trash
+        desc:A tin can, old plastic, maybe someone has a use for this stuff? maybe?
+        icon:https://imgoat.com/uploads/4f683a8416/61100.png
+        start with:8000
+        on click:
+          if (have cardboardSortingBins and trash >= 20)
+            lose 20 trash
+            yield 1 scrap
+          end
+        end
+ 
+        *scrap
+        name: Scrap metal
+        desc: This used to be called 'change'. Hey theres lincoln! Whatcha doin' lincoln? Tin cans, wire, rv siding too. Also, road signs do not in fact make good armor
+        //needs a class with flares or logger saying you found something. Other resources
+        //shouldn't show unless you have some.
+        hidden when 0
+ 
+    /*   EXPERIMENTAL  
+        //for testing resource layouts
+        *bitsAndBobs
+        name: bits and bobs
+       
+        *oldFurniture
+        name: old mildew covered furniture
+       
+        *rags
+        name:Clothing fragments
+       
+        *chemicals
+        name: Halfempty household chemical bottle
+    */ 
+       
+    Buttons
+      *gatherTrash
+        name:Gather Loose Trash
+        desc:Discarded plastic shopping bags, bits and bobs, rotten clothes and tin cans, you name it. Meagre offerings gathered by hand while avoiding the dangers of the wasteland.
+        icon:https://imgoat.com/uploads/4f683a8416/61116.png
+        on click:
+          yield 1 trash
+        //if not already in a settlement AND OR have weapon, it is safe to keep travelling so..
+          yield 1 distance
+        end
+        class:bigButton hasFlares
+        //As upgrades are bought, new items can be found, and this button should be
+        //hidden and new buttons should be shown to compensate.
+       
+    Upgrades
+      //hidden
+      *increaseTime
+      on tick:yield 1 time
+      owned
+      hidden
+     
+      *trashTent
+        name:Trash Tent
+        desc:A temporary structure. +1 Trash per second. More of a heap with newspapers and other garbage held up with tires for walls. Just a spot to sleep and store your trash so you can collect more trash.
+        cost:50 trash
+       
+      *cardboardLeanto
+        name:cardboard leanto
+        desc:Like a fort but a lot less secure. Little more than a shanty. Allows you to store more trash and even gives you a place to sort it all. Makes cardboard sorting bins available.
+        cost:50 trash
+        //req:trashTent
+     
+      *cardboardSortingBins
+        name:Cardboard Sorting Bin
+        desc:Unlocks the ability to sort plastic and dangerous broken glass by hand! Lug it with you wherever you go. Allows you to convert trash into other trash by clicking on the trash resource. Takes x20 trash to produce something.
+        cost:15 trash
+        //use poppers, or screen effects to indicate the player can do this!
+        req:cardboardLeanto
+     
+ 
+      *calendar
+        name:A dusty calendar
+        desc:It may be off by a few days and out of date, but at least you have an idea what year it is.
+        req:scrapShack
+        cost:15 trash
+        on earn:
+          log After discarding a bunch of trash You find a worn, scribbled calendar in the old shack.
+          lose yearUnknown
+        end
+ 
+       *smallEncamp
+        name:A small encampment
+        desc:Little more than some trash forts, a campfire, old tires as a fence, and assorted junk. Humble beginnings.
+        req:cardboardLeanto
+        cost:50 trash
+       
+       
+    Buildings
+      *TEMPLATE
+      //on earn:toast This is a toast!
+     
+      *scrapShack
+      //was scrapShack
+      name:Scrap metal shack
+      desc:A proper place to sort and store junk. Now you can think about selling some stuff. Makes 'for sale' sign upgrade available.
+      cost:20 scrap
+      req:smallEncamp
+      on tick:yield 1 trash
+ 
+    Items
+      *TEMPLATE
+       class:thing upgrade
+       
+      *dustyBook
+       name:Dusty Book
+       desc:A dusty book, yellowed with time and dog-eared. Non-fiction on some subject no one knows anymore.
+       on start:yield dustyBook
+       
+    /*  EXPERIMENTAL */
