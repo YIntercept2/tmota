@@ -120,7 +120,7 @@ Let's make a game!
       *trash
         name:Bits of trash
         desc:A tin can, old plastic, maybe someone has a use for this stuff? maybe?
-        icon:https://raw.githubusercontent.com/YIntercept2/tmota/master/assets/folded-paper(1).png
+        icon:https://github.com/YIntercept2/tmota/raw/master/assets/folded-paper.png
         start with:8000
         on click:
           if (have cardboardSortingBins and trash >= 20)
